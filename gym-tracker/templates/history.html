@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM BEAST - History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">GYM BEAST</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">DASHBOARD</a></li>
+                    <li><a href="/history" class="active">HISTORY</a></li>
+                    <li><a href="#" id="logoutBtn">LOGOUT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Title -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--dark-purple), var(--neon-purple));">
+            <h1 style="color: var(--white); font-family: 'Orbitron', monospace; font-size: 3rem; margin-bottom: 1rem;">
+                📈 BEAST HISTORY 📊
+            </h1>
+            <p style="color: var(--white); font-size: 1.3rem; font-weight: 600;">
+                Track your journey to greatness • Every rep counts • Every drop matters
+            </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="card">
+            <h2 class="card-title">🔍 FILTER YOUR GAINS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="form-group">
+                    <label class="form-label" for="filterDate">DATE RANGE</label>
+                    <select id="filterDate" class="form-select">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="filterType">DATA TYPE</label>
+                    <select id="filterType" class="form-select">
+                        <option value="all">All Data</option>
+                        <option value="workouts">Workouts Only</option>
+                        <option value="water">Water Only</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="filterWorkout">WORKOUT DAY</label>
+                    <select id="filterWorkout" class="form-select">
+                        <option value="all">All Days</option>
+                        <option value="1">Back & Biceps</option>
+                        <option value="2">Shoulders</option>
+                        <option value="3">Chest & Triceps</option>
+                        <option value="4">Legs</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button class="btn" onclick="applyFilters()">
+                    🔥 APPLY FILTERS
+                </button>
+                <button class="btn btn-secondary" onclick="clearFilters()">
+                    🔄 RESET
+                </button>
+            </div>
+        </div>
+
+        <!-- History Content -->
+        <div class="card">
+            <h2 class="card-title">📋 YOUR BEAST JOURNEY</h2>
+            
+            <div id="historyContainer" class="history-grid">
+                <div style="text-align: center; padding: 3rem; color: var(--light-gray);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+                    <h3>Loading your beast history...</h3>
+                    <p>Gathering all your gains and hydration data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Summary -->
+        <div class="card">
+            <h2 class="card-title">📊 BEAST ANALYTICS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--neon-purple);">
+                    <div style="font-size: 2.5rem; color: var(--neon-purple); margin-bottom: 0.5rem;">🏋️</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--white);" id="totalHistoryWorkouts">0</div>
+                    <div style="color: var(--light-gray); font-weight: 600;">Total Exercises</div>
+                </div>
+                
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--electric-purple);">
+                    <div style="font-size: 2.5rem; color: var(--electric-purple); margin-bottom: 0.5rem;">💧</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--white);" id="totalHistoryWater">0L</div>
+                    <div style="color: var(--light-gray); font-weight: 600;">Total Water</div>
+                </div>
+                
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--bright-purple);">
+                    <div style="font-size: 2.5rem; color: var(--bright-purple); margin-bottom: 0.5rem;">📅</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--white);" id="activeDays">0</div>
+                    <div style="color: var(--light-gray); font-weight: 600;">Active Days</div>
+                </div>
+                
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--success);">
+                    <div style="font-size: 2.5rem; color: var(--success); margin-bottom: 0.5rem;">💪</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--white);" id="maxWeight">0kg</div>
+                    <div style="color: var(--light-gray); font-weight: 600;">Max Weight</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivational Footer -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--black), var(--dark-gray));">
+            <h3 style="color: var(--neon-purple); font-family: 'Orbitron', monospace; font-size: 1.8rem; margin-bottom: 1rem;">
+                🦍 EVERY BEAST HAS A STORY 🐉
+            </h3>
+            <p style="color: var(--white); font-size: 1.2rem; font-weight: 600;">
+                Your history shows your dedication • Your progress proves your power
+            </p>
+            <p style="color: var(--light-gray); margin-top: 1rem;">
+                💪 Keep pushing • 🔥 Keep growing • ⚡ Keep being a BEAST
+            </p>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <script>
+        let allWorkouts = [];
+        let allWaterData = [];
+        
+        // Load and display history
+        async function loadHistory() {
+            try {
+                // Show loading state
+                document.getElementById('historyContainer').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--light-gray);">
+                        <div class="loading" style="width: 40px; height: 40px; margin: 0 auto 1rem;"></div>
+                        <h3>Loading your beast history...</h3>
+                    </div>
+                `;
+                
+                // Load workout history
+                const workoutResponse = await fetch('/workouts');
+                allWorkouts = await workoutResponse.json();
+                
+                // Load water history  
+                const waterResponse = await fetch('/water');
+                allWaterData = await waterResponse.json();
+                
+                displayHistory(allWorkouts, allWaterData);
+                updateAnalytics(allWorkouts, allWaterData);
+                
+            } catch (error) {
+                console.error('Error loading history:', error);
+                document.getElementById('historyContainer').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--danger);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                        <h3>Failed to load history</h3>
+                        <p>Check your connection and try again</p>
+                        <button class="btn" onclick="loadHistory()" style="margin-top: 1rem;">
+                            🔄 RETRY
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        function displayHistory(workouts, waterData) {
+            const historyContainer = document.getElementById('historyContainer');
+            
+            if (workouts.length === 0 && (!waterData || waterData.length === 0)) {
+                historyContainer.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--light-gray);">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🏃‍♂️</div>
+                        <h3>Your beast journey starts here!</h3>
+                        <p>Start logging workouts and water intake to see your history</p>
+                        <a href="/" class="btn" style="margin-top: 1rem; display: inline-block; text-decoration: none;">
+                            🔥 START TRAINING
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Group data by date
+            const groupedData = {};
+            
+            workouts.forEach(workout => {
+                const date = workout.date;
+                if (!groupedData[date]) {
+                    groupedData[date] = { workouts: [], water: null };
+                }
+                groupedData[date].workouts.push(workout);
+            });
+            
+            // Add water data
+            if (Array.isArray(waterData)) {
+                waterData.forEach(water => {
+                    const date = water.date;
+                    if (!groupedData[date]) {
+                        groupedData[date] = { workouts: [], water: null };
+                    }
+                    groupedData[date].water = water;
+                });
+            }
+            
+            // Sort dates in descending order
+            const sortedDates = Object.keys(groupedData).sort((a, b) => new Date(b) - new Date(a));
+            
+            historyContainer.innerHTML = sortedDates.map(date => {
+                const data = groupedData[date];
+                const workoutsByDay = {};
+                
+                // Group workouts by day
+                data.workouts.forEach(workout => {
+                    if (!workoutsByDay[workout.workout_day]) {
+                        workoutsByDay[workout.workout_day] = [];
+                    }
+                    workoutsByDay[workout.workout_day].push(workout);
+                });
+                
+                return `
+                    <div class="history-item">
+                        <div class="history-date">${formatDate(date)}</div>
+                        <div class="history-content">
+                            ${Object.keys(workoutsByDay).length > 0 ? `
+                                <div class="history-workouts">
+                                    <h4>🏋️ Workouts (${data.workouts.length} exercises)</h4>
+                                    ${Object.keys(workoutsByDay).map(day => {
+                                        const dayName = getDayName(day);
+                                        return `
+                                            <div style="margin-bottom: 1rem; padding: 1rem; background: var(--dark-gray); border-radius: 8px; border-left: 4px solid var(--neon-purple);">
+                                                <h5 style="color: var(--neon-purple); margin-bottom: 0.5rem;">Day ${day}: ${dayName}</h5>
+                                                <div class="workout-list">
+                                                    ${workoutsByDay[day].map(w => `
+                                                        <div class="workout-entry" style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--light-gray);">
+                                                            <span style="color: var(--white); font-weight: 600;">${w.exercise_name}: <span style="color: var(--bright-purple);">${w.weight}kg</span></span>
+                                                            <button class="btn btn-small btn-danger" onclick="deleteWorkout(${w.id})" title="Delete this exercise">
+                                                                🗑️
+                                                            </button>
+                                                        </div>
+                                                    `).join('')}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            ` : ''}
+                            ${data.water ? `
+                                <div class="history-water" style="padding: 1rem; background: var(--dark-gray); border-radius: 8px; border-left: 4px solid var(--electric-purple);">
+                                    <h4 style="color: var(--electric-purple); margin-bottom: 0.5rem;">💧 Water Intake</h4>
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--white);">
+                                        ${data.water.liters}L 
+                                        <span style="font-size: 1rem; color: var(--light-gray);">
+                                            ${data.water.liters >= 3 ? '🎯 Goal Achieved!' : `(${(3 - data.water.liters).toFixed(1)}L to goal)`}
+                                        </span>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateAnalytics(workouts, waterData) {
+            // Total exercises
+            document.getElementById('totalHistoryWorkouts').textContent = workouts.length;
+            
+            // Total water
+            const totalWater = Array.isArray(waterData) ? 
+                waterData.reduce((sum, w) => sum + (w.liters || 0), 0) : 0;
+            document.getElementById('totalHistoryWater').textContent = `${totalWater.toFixed(1)}L`;
+            
+            // Active days
+            const uniqueDates = new Set();
+            workouts.forEach(w => uniqueDates.add(w.date));
+            if (Array.isArray(waterData)) {
+                waterData.forEach(w => uniqueDates.add(w.date));
+            }
+            document.getElementById('activeDays').textContent = uniqueDates.size;
+            
+            // Max weight
+            const maxWeight = workouts.length > 0 ? 
+                Math.max(...workouts.map(w => parseFloat(w.weight) || 0)) : 0;
+            document.getElementById('maxWeight').textContent = `${maxWeight}kg`;
+        }
+        
+        function getDayName(day) {
+            const dayNames = {
+                1: 'Back & Biceps',
+                2: 'Shoulders', 
+                3: 'Chest & Triceps',
+                4: 'Legs',
+                5: 'Back & Biceps',
+                6: 'Shoulders',
+                7: 'Chest & Triceps'
+            };
+            return dayNames[day] || 'Unknown';
+        }
+        
+        function applyFilters() {
+            // This would implement filtering logic
+            showMessage('Filters applied! 🔥', 'success');
+        }
+        
+        function clearFilters() {
+            document.getElementById('filterDate').value = 'all';
+            document.getElementById('filterType').value = 'all';
+            document.getElementById('filterWorkout').value = 'all';
+            loadHistory();
+            showMessage('Filters cleared! 🔄', 'success');
+        }
+        
+        // Load history when page loads
+        document.addEventListener('DOMContentLoaded', loadHistory);
+    </script>
+</body>
+</html>
