@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM BEAST - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h1 class="login-title">GYM BEAST</h1>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">LOGIN</button>
+                <button class="auth-tab" data-tab="signup">SIGN UP</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form" style="display: block;">
+                <div class="form-group">
+                    <label class="form-label" for="loginUsername">USERNAME</label>
+                    <input 
+                        type="text" 
+                        id="loginUsername" 
+                        name="username" 
+                        class="form-input" 
+                        required
+                        placeholder="Enter your username"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">PASSWORD</label>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        name="password" 
+                        class="form-input" 
+                        required
+                        placeholder="Enter your password"
+                    >
+                </div>
+                
+                <button type="submit" id="loginBtn" class="btn" style="width: 100%; margin-top: 1rem;">
+                    LOGIN
+                </button>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="signupUsername">USERNAME</label>
+                    <input 
+                        type="text" 
+                        id="signupUsername" 
+                        name="username" 
+                        class="form-input" 
+                        required
+                        placeholder="Choose a username"
+                        minlength="3"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="signupPassword">PASSWORD</label>
+                    <input 
+                        type="password" 
+                        id="signupPassword" 
+                        name="password" 
+                        class="form-input" 
+                        required
+                        placeholder="Create a password"
+                        minlength="6"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">CONFIRM PASSWORD</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        class="form-input" 
+                        required
+                        placeholder="Confirm your password"
+                        minlength="6"
+                    >
+                </div>
+                
+                <button type="submit" id="signupBtn" class="btn" style="width: 100%; margin-top: 1rem;">
+                    SIGN UP
+                </button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 2rem; color: var(--light-gray);">
+                <p>💪 UNLEASH THE BEAST WITHIN 💪</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
