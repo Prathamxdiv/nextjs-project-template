@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM BEAST - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">GYM BEAST</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/" class="active">DASHBOARD</a></li>
+                    <li><a href="/history">HISTORY</a></li>
+                    <li><a href="#" id="logoutBtn">LOGOUT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Workout Tracker Card -->
+        <div class="card">
+            <h2 class="card-title">💪 WORKOUT TRACKER</h2>
+            
+            <div class="form-group">
+                <label class="form-label" for="workoutDay">SELECT TRAINING DAY</label>
+                <select id="workoutDay" class="form-select">
+                    <option value="">Choose your battle...</option>
+                    <option value="1">Day 1 - Back & Biceps</option>
+                    <option value="2">Day 2 - Shoulders</option>
+                    <option value="3">Day 3 - Chest & Triceps</option>
+                    <option value="4">Day 4 - Legs</option>
+                    <option value="5">Day 5 - Back & Biceps</option>
+                    <option value="6">Day 6 - Shoulders</option>
+                    <option value="7">Day 7 - Chest & Triceps</option>
+                </select>
+            </div>
+            
+            <div id="exercisesContainer">
+                <div style="text-align: center; padding: 3rem; color: var(--light-gray);">
+                    <h3>🔥 SELECT A DAY TO UNLEASH THE BEAST 🔥</h3>
+                    <p>Choose your training day above to load exercises</p>
+                </div>
+            </div>
+            
+            <div id="workoutSummary" style="margin-top: 2rem; padding: 1rem; background: var(--medium-gray); border-radius: 10px; text-align: center;">
+                <h4>Today's Progress</h4>
+                <p>0 exercises logged</p>
+            </div>
+        </div>
+
+        <!-- Water Tracker Card -->
+        <div class="card">
+            <h2 class="card-title">💧 HYDRATION STATION</h2>
+            
+            <div class="water-tracker">
+                <div class="water-goal">
+                    🎯 DAILY GOAL: 3.0 LITERS
+                </div>
+                
+                <div class="water-progress">
+                    <div id="waterProgressBar" class="water-progress-bar" style="width: 0%;"></div>
+                </div>
+                
+                <div id="waterAmount" class="water-amount">
+                    0.0L / 3.0L
+                </div>
+                
+                <div class="water-controls">
+                    <button id="addWaterBtn" class="water-btn" title="Add 200ml">
+                        +
+                    </button>
+                    <span style="color: var(--neon-purple); font-weight: 700; font-size: 1.2rem;">
+                        200ML
+                    </span>
+                </div>
+                
+                <div style="margin-top: 1rem; color: var(--light-gray); font-size: 0.9rem;">
+                    💡 Stay hydrated to maximize your gains!
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+        <div class="card">
+            <h2 class="card-title">📊 BEAST MODE STATS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--neon-purple);">
+                    <div style="font-size: 2rem; color: var(--neon-purple); margin-bottom: 0.5rem;">🏋️</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--white);" id="totalWorkouts">0</div>
+                    <div style="color: var(--light-gray);">Total Workouts</div>
+                </div>
+                
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--electric-purple);">
+                    <div style="font-size: 2rem; color: var(--electric-purple); margin-bottom: 0.5rem;">💧</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--white);" id="totalWater">0.0L</div>
+                    <div style="color: var(--light-gray);">Today's Water</div>
+                </div>
+                
+                <div style="text-align: center; padding: 1.5rem; background: var(--medium-gray); border-radius: 10px; border: 2px solid var(--bright-purple);">
+                    <div style="font-size: 2rem; color: var(--bright-purple); margin-bottom: 0.5rem;">🔥</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--white);">BEAST</div>
+                    <div style="color: var(--light-gray);">Mode: ON</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivational Section -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--dark-purple), var(--neon-purple));">
+            <h2 style="color: var(--white); font-family: 'Orbitron', monospace; font-size: 2.5rem; margin-bottom: 1rem;">
+                🦍 BEAST MINDSET 🐉
+            </h2>
+            <div style="font-size: 1.3rem; font-weight: 600; color: var(--white); line-height: 1.6;">
+                <p>"THE PAIN YOU FEEL TODAY WILL BE THE STRENGTH YOU FEEL TOMORROW"</p>
+                <p style="margin-top: 1rem; font-size: 1.1rem; opacity: 0.9;">
+                    💪 PUSH YOUR LIMITS • 🔥 BREAK YOUR RECORDS • ⚡ UNLEASH THE BEAST
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <script>
+        // Update stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+        });
+        
+        async function updateStats() {
+            try {
+                // Update total workouts for today
+                const workoutResponse = await fetch(`/workouts?date=${new Date().toISOString().split('T')[0]}`);
+                const workouts = await workoutResponse.json();
+                document.getElementById('totalWorkouts').textContent = workouts.length;
+                
+                // Update water intake
+                const waterResponse = await fetch(`/water?date=${new Date().toISOString().split('T')[0]}`);
+                const waterData = await waterResponse.json();
+                document.getElementById('totalWater').textContent = `${(waterData.liters || 0).toFixed(1)}L`;
+            } catch (error) {
+                console.error('Error updating stats:', error);
+            }
+        }
+    </script>
+</body>
+</html>
